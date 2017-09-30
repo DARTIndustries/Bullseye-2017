@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 #Servo Controller for Raspberry PI with 16-channel PWM Servo Hat
 #For DART 8/26/17
@@ -7,21 +7,26 @@
 #May need to add mid lower and upper configurable parameters
 
 
-from Adafruit_PWM_Servo_Driver import PWM
+from ABE_ServoPi import PWM
 import time
+from ABE_helpers import ABEHelpers
 import sys
 
 
 class ServoController:
 	def __init__(self, port):
 		# Initialise the PWM device using the default address
-		self.pwm = PWM(0x40)
-		self.pwm.setPWMFreq(50) # Set frequency to 60 Hz
+		i2c_helper = ABEHelpers()
+		bus = i2c_helper.get_smbus()
+		
+		self.pwm = PWM(bus, 0x40)
+		self.pwm.set_pwm_freq(50) # Set frequency to 60 Hz
+		self.pwm.output_enable()
 		self.port = port
 			
 		#===The Below Values may need to be configurable===
-		self.mid = 332
 		self.lower = 140
+		self.mid = 332
 		self.upper = 540
 
 
@@ -43,21 +48,21 @@ class ServoController:
 			outVal = (inVal * (self.mid - self.lower)) + self.mid
 	
 		#print outVal #<-- for debugging uncomment	
-		self.pwm.setPWM(self.port, 0, int(outVal))
+		self.pwm.set_pwm(self.port, 0, int(outVal))
 
 
 	#set the servo to off
 	def off(self):
-		self.pwm.setPWM(self.port, 0, 0)
+		self.pwm.set_pwm(self.port, 0, 0)
 
 
 #===Test driver to control a servo===
 def testDriver():
-	port = int(raw_input("Enter a port: "))
+	port = int(input("Enter a port: "))
 	ctrl = ServoController(port)
 
 	while (True):
-		value = raw_input("Enter a value from -1 to 1: ")
+		value = input("Enter a value from -1 to 1: ")
 		if str(value) == "off":
 			ctrl.off()
 		else:	
