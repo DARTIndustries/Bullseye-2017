@@ -61,7 +61,7 @@ def testDriver():
 		if str(value) == "off":
 			ctrl.off()
 		else:	
-			ctrl.setValue(int(value))
+			ctrl.setValue(float(value))
 
 
 if __name__ == "__main__":
