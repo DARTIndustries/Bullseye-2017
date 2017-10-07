@@ -1,20 +1,22 @@
 #!/usr/bin/python3
 
-#Motor Controller for Raspberry PI with 16-channel PWM Servo Hat
+#Servo Driver for Raspberry PI with 16-channel PWM Servo Hat
 #For DART 8/26/17
 #By Adam Feldscher
 #Takes input from -1 to 1 and sets the servo pwm value
 #May need to add mid lower and upper configurable parameters
 
-
-from ABE_ServoPi import PWM
-import time
-from ABE_helpers import ABEHelpers
 import sys
-import RPi.GPIO as GPIO
+#sys.path.insert(0, '../../../libs')
 
-class MotorController:
-	def __init__(self, pwmPort, dirPort):
+#TODO: FIX IMPORTS
+from ../../../libs/ABE_ServoPi import PWM
+import time
+from ../../../libs/ABE_helpers import ABEHelpers
+
+
+class ServoDriver:
+	def __init__(self, port):
 		# Initialise the PWM device using the default address
 		i2c_helper = ABEHelpers()
 		bus = i2c_helper.get_smbus()
@@ -22,15 +24,13 @@ class MotorController:
 		self.pwm = PWM(bus, 0x40)
 		self.pwm.set_pwm_freq(50) # Set frequency to 60 Hz
 		self.pwm.output_enable()
-		self.pwmPort = pwmPort
-		self.dirPort = dirPort
-	
-		self.upper = 4095  #0 -> 4095
+		self.port = port
+			
+		#===The Below Values may need to be configurable===
+		self.lower = 140
+		self.mid = 332
+		self.upper = 540
 
-		#init GPIO
-		GPIO.setmode(GPIO.BOARD)
-		GPIO.setup(dirPort, GPIO.OUT)
-		
 
 	#set a value from -1 to 1
 	def setValue(self, value):
@@ -39,26 +39,29 @@ class MotorController:
 		if (inVal > 1 or inVal < -1):
 			raise Exception("Value out of bounds, [-1, 1]")
 	
-		outVal = abs(inVal) * self.upper
+		#==Scale the input using a piecewise function===
+		# 0 = mid
+		# then  0 -> 1 scale linearly to mid -> upper
+		# then -1 -> 0 scale linearly to lower -> mid	
 
-		#Set Direction
-		GPIO.output(self.dirPort, (inVal < 0))
-
-
+		if (inVal > 0): #upper
+			outVal = (inVal * (self.upper - self.mid)) + self.mid
+		else: #lower
+			outVal = (inVal * (self.mid - self.lower)) + self.mid
+	
 		#print outVal #<-- for debugging uncomment	
-		self.pwm.set_pwm(self.pwmPort, 0, int(outVal))
+		self.pwm.set_pwm(self.port, 0, int(outVal))
 
 
-	#set the motor to off
+	#set the servo to off
 	def off(self):
-		self.pwm.set_pwm(self.pwmPort, 0, 0)
+		self.pwm.set_pwm(self.port, 0, 0)
 
 
 #===Test driver to control a servo===
 def testDriver():
-	pwmPort = int(input("Enter a PWM port: "))
-	dirPort = int(input("Enter a dir port: "))
-	ctrl = MotorController(pwmPort, dirPort)
+	port = int(input("Enter a port: "))
+	ctrl = ServoDriver(port)
 
 	while (True):
 		value = input("Enter a value from -1 to 1: ")
