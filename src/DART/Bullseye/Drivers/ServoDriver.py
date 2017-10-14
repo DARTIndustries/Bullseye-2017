@@ -7,12 +7,12 @@
 #May need to add mid lower and upper configurable parameters
 
 import sys
-#sys.path.insert(0, '../../../libs')
-
-#TODO: FIX IMPORTS
-from ../../../libs/ABE_ServoPi import PWM
 import time
-from ../../../libs/ABE_helpers import ABEHelpers
+
+sys.path.insert(0, '../../../')
+
+from libs.ABE_ServoPi import PWM
+from libs.ABE_helpers import ABEHelpers
 
 
 class ServoDriver:
