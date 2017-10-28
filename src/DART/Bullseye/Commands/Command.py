@@ -7,7 +7,7 @@ import sys
 import abc
 sys.path.insert(0, '../../../')
 
-class Command(abc.ABCMeta):
+class Command(metaclass=abc.ABCMeta):
     def __init__(self):
         isLongRunning = False
 
