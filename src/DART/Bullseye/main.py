@@ -5,13 +5,18 @@
 #Main entry class
 
 import sys
+from threading import Thread
+from queue import Queue
 sys.path.insert(0, '../../')
 from DART.Bullseye.Utils.AsciiArt import AsciiArt
-import threading
-
+from DART.Bullseye.Networking.MailMan import MailMan
+from DART.Bullseye.Mr_Manager import Mr_Manager
 
 asciiArt = AsciiArt()
 version = "1.0.0"
+networkQueue = Queue()
+mailMan = MailMan(networkQueue)
+mrManager = Mr_Manager(networkQueue)
 
 
 def run() :
@@ -19,9 +24,12 @@ def run() :
     print(asciiArt.getBullseye(), asciiArt.getBy(), asciiArt.getDart())
     print("\n\t    -----v" + version + "-----\n")
 
-#https://docs.python.org/3/library/threading.html
-#    mythread = MyThread(name = "Thread-{}".format(x + 1))  # ...Instantiate a thread and pass a unique ID to it
-#    mythread.start()             
+    #=====Start Threads=====
+    mrManagerThread = Thread(target = mrManager.run) 
+    mailManThread = Thread(target = mailMan.run) 
+    
+    mrManagerThread.start()
+    mailManThread.start()
 
 
 if __name__ == "__main__":

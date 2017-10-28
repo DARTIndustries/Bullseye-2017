@@ -4,6 +4,9 @@
 
 class Mr_Manager:
 
-#    def __init__(self):
+    def __init__(self, networkQueue):
+        self.networkQueue = networkQueue
 
 
+    def run():
+        print("test Manager")
