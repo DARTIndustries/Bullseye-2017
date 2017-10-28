@@ -3,6 +3,7 @@
 #DART 10/14/17
 #Bullseye Pi Code
 #Main entry class
+#Namespace = DART.Bullseye
 
 import sys
 from threading import Thread
@@ -25,11 +26,12 @@ def run() :
     print("\n\t    -----v" + version + "-----\n")
 
     #=====Start Threads=====
-    mrManagerThread = Thread(target = mrManager.run) 
     mailManThread = Thread(target = mailMan.run) 
+    mrManagerThread = Thread(target = mrManager.run) 
+
     
-    mrManagerThread.start()
     mailManThread.start()
+    mrManagerThread.start()
 
 
 if __name__ == "__main__":
