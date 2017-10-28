@@ -8,5 +8,5 @@ class Mr_Manager:
         self.networkQueue = networkQueue
 
 
-    def run():
+    def run(self):
         print("test Manager")

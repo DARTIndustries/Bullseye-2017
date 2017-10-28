@@ -8,5 +8,5 @@ class MailMan:
         self.networkQueue = networkQueue
 
 
-    def run():
+    def run(self):
         print("test Mailman")
