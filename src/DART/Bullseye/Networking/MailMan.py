@@ -2,7 +2,7 @@
 
 #DART 10/14/17
 
-class Mailman:
+class MailMan:
 
     def __init__(self, networkQueue):
         self.networkQueue = networkQueue
