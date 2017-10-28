@@ -5,7 +5,7 @@
 
 import sys
 sys.path.insert(0, '../../../')
-from NetMessage import NetMessage
+from DART.Bullseye.Networking.NetMessage import NetMessage
 
 
 class MailMan:
