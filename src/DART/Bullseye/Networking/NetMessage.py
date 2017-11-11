@@ -7,7 +7,6 @@
 import sys
 sys.path.insert(0, '../../../')
 
-
 class NetMessage:
     def __init__(self):
         self.value = ""

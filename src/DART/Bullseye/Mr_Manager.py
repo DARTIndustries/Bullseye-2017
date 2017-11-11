@@ -10,17 +10,12 @@ from DART.Bullseye.Commands.MotorCommand import MotorCommand
 
 class Mr_Manager:
 
-    def __init__(self, networkQueue):
-        self.networkQueue = networkQueue
+    def __init__(self, networkInQueue):
+        self.networkInQueue = networkInQueue
 
 
     def run(self):
-        print("test Manager")
-        msg = self.networkQueue.get()
-
-        print(msg.getValue())
-
-        test = MotorCommand(0, 1)
-
-        print(test)
-
+        #TODO: Add long running commands
+        while (True):
+            command = self.networkInQueue.get() #blocking
+            command.execute()

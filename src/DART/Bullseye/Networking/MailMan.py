@@ -6,7 +6,9 @@
 import sys
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Networking.NetMessage import NetMessage
+from DART.Bullseye.Networking.MessageUnpacker import MessageUnpacker
 
+messageUnpacker = MessageUnpacker()
 
 class MailMan:
 
@@ -17,5 +19,8 @@ class MailMan:
     def run(self):
         print("test Mailman")
 
-        tmp = NetMessage("testMsgValue")
-        self.networkQueue.put(tmp)
+        msg = NetMessage('{"Do":{"Motor":[127,94,0,0,-94,-127],"Lights":""}}')
+        cmds = messageUnpacker.unpack(msg)
+        for cmd in cmds:
+            print("Adding command")
+            self.networkQueue.put(cmd)

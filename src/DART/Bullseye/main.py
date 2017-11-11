@@ -33,6 +33,9 @@ def run() :
     mailManThread.start()
     mrManagerThread.start()
 
+    mailManThread.join()
+    mrManagerThread.join()
+
 
 if __name__ == "__main__":
     run()
