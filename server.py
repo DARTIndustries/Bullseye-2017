@@ -2,7 +2,7 @@ import socket
 import RPi.GPIO as GPIO
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server = ("0.0.0.0", 3000)
+server = ("127.0.0.1", 3000)
 
 sock.bind(server)
 sock.listen(1)
