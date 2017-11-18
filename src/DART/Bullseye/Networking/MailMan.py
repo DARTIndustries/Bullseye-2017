@@ -23,7 +23,7 @@ class MailMan:
         server = (IP, PORT)
         sock.bind(server)
 
-        sock.listen(1)
+        sock.listen(5)
         print("Listening on ip:", IP, "port:", PORT)
 
         connection, address = sock.accept()
