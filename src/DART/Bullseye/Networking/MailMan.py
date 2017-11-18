@@ -10,6 +10,8 @@ from DART.Bullseye.Networking.NetMessage import NetMessage
 from DART.Bullseye.Networking.MessageUnpacker import MessageUnpacker
 
 messageUnpacker = MessageUnpacker()
+IP = "127.0.0.1"
+PORT = 5000
 
 class MailMan:
     def __init__(self, networkQueue):
@@ -17,12 +19,13 @@ class MailMan:
 
 
     def run(self):
-        print("test Mailman")
         sock = socket.socket()
-        server = ("127.0.0.1", 5000)
+        server = (IP, PORT)
         sock.bind(server)
 
         sock.listen(1)
+        print("Listening on ip:", IP, "port:", PORT)
+
         connection, address = sock.accept()
         print ("Connection from: " + str(address))
         while True:

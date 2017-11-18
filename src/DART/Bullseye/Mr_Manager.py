@@ -16,6 +16,7 @@ class Mr_Manager:
 
     def run(self):
         #TODO: Add long running commands
+        print("MrManager:  waiting for commands")        
         while (True):
             command = self.networkInQueue.get() #blocking
             command.execute()
