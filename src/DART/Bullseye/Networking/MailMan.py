@@ -7,7 +7,9 @@ import sys
 import socket 
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Networking.NetMessage import NetMessage
+from DART.Bullseye.Networking.MessageUnpacker import MessageUnpacker
 
+messageUnpacker = MessageUnpacker()
 
 class MailMan:
     def __init__(self, networkQueue):
@@ -27,7 +29,10 @@ class MailMan:
             data = connection.recv(1024).decode()
             if not data:
                 break
-            tmp = NetMessage(data)    
-            self.networkQueue.put(tmp)
+            msg = NetMessage(data)    
+            cmds = messageUnpacker.unpack(msg)
+            for cmd in cmds:
+                print("Adding command")
+                self.networkQueue.put(cmd)
 
         connection.close()
