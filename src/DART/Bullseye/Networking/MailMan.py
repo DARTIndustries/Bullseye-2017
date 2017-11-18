@@ -10,7 +10,7 @@ from DART.Bullseye.Networking.NetMessage import NetMessage
 from DART.Bullseye.Networking.MessageUnpacker import MessageUnpacker
 
 messageUnpacker = MessageUnpacker()
-IP = "127.0.0.1"
+IP = "0.0.0.0"
 PORT = 5000
 
 class MailMan:
@@ -26,16 +26,24 @@ class MailMan:
         sock.listen(5)
         print("Listening on ip:", IP, "port:", PORT)
 
-        connection, address = sock.accept()
-        print ("Connection from: " + str(address))
         while True:
-            data = connection.recv(1024).decode()
-            if not data:
-                break
-            msg = NetMessage(data)    
-            cmds = messageUnpacker.unpack(msg)
-            for cmd in cmds:
-                print("Adding command")
-                self.networkQueue.put(cmd)
-
-        connection.close()
+            try: 
+                connection, address = sock.accept()
+                print ("Connection from: " + str(address))
+                conFile = connection.makefile()
+                while True:
+                    try: 
+                        data = conFile.readline()
+                        if not data:
+                            break
+                        print("RECIEVED PACKET:    ", data)
+                        msg = NetMessage(data)    
+                        cmds = messageUnpacker.unpack(msg)
+                        for cmd in cmds:
+                            print("Adding command")
+                            self.networkQueue.put(cmd)
+                    except Exception as e:
+                        print("MailMan: Top level exception throw while decrypting packet. Exception: " e)
+                connection.close()
+            except socket.error:
+                print("Socket Connection Error, trying to reaccept")

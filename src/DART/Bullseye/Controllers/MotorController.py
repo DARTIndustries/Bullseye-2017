@@ -5,7 +5,7 @@ import sys
 from abc import ABC
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Controllers.Controller import Controller
-from DART.Bullseye.Drivers.MotorDriver import MotorDriver
+#from DART.Bullseye.Drivers.MotorDriver import MotorDriver
 from libs.Singleton import Singleton
 
 #NUM_MOTORS = 6
@@ -25,14 +25,16 @@ class MotorController(Controller):
     def __init__(self):
         self.motors = []
         for pins in MOTOR_PINS:
-            self.motors.append(MotorDriver(pins[0], pins[1]))       
+            self.motors.append("test")
+ #           self.motors.append(MotorDriver(pins[0], pins[1]))   
+     
 
     
     def execute(self, command):
         if not command.isLongRunning:
             num = command.motorNumber
             val = command.value
-            self.motors[num].setValue(val)
+            #self.motors[num].setValue(val)
             print("Motor Controller: Set Motor: ", num, " To: ", val)
         else:
             print("Motor Controller: No Long running support!")

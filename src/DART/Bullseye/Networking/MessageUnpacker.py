@@ -10,8 +10,13 @@ from DART.Bullseye.Commands.MotorCommand import MotorCommand
 class MessageUnpacker:
     def unpack(self, netMessage):
         commands = []
-        rawData = json.loads(netMessage.getValue())
-        print("raw:   ", rawData)
+
+        try:
+            rawData = json.loads(netMessage.getValue())
+        except ValueError:  # includes simplejson.decoder.JSONDecodeError
+            print 'Decoding JSON has failed'
+            return []
+
         if ("Do" in rawData):
             do = rawData["Do"]
             if ("Motor" in do):
@@ -20,6 +25,10 @@ class MessageUnpacker:
                 commands += self.lightsToCommands(do["Lights"])
             elif ("Servo" in do):
                 commands += self.servoToCommands(do["Servo"])
+        elif ("Request" in rawData):
+            print("MailMan Request Not Implemented")
+        else :
+            print("Mailman, invalid packet recieved:    ", rawData)
         #TODO: Response type
         return commands
 

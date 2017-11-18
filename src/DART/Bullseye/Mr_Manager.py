@@ -18,5 +18,9 @@ class Mr_Manager:
         #TODO: Add long running commands
         print("MrManager:  waiting for commands")        
         while (True):
-            command = self.networkInQueue.get() #blocking
-            command.execute()
+            try:
+                command = self.networkInQueue.get() #blocking
+                command.execute()
+            except Exception as e:
+                print("Top level exception in Mr Manager run. Exception: " e)
+                
