@@ -32,18 +32,24 @@ class MailMan:
                 print ("Connection from: " + str(address))
                 conFile = connection.makefile()
                 while True:
-                    try: 
-                        data = conFile.readline()
-                        if not data:
-                            break
-                        print("RECIEVED PACKET:    ", data)
-                        msg = NetMessage(data)    
-                        cmds = messageUnpacker.unpack(msg)
-                        for cmd in cmds:
-                            print("Adding command")
-                            self.networkQueue.put(cmd)
-                    except Exception as e:
-                        print("MailMan: Top level exception throw while decrypting packet. Exception: " e)
+                    data = conFile.readline()
+                    if not data:
+                        break
+                    print("RECIEVED PACKET:    ", data)
+                    msg = NetMessage(data)    
+                    cmds = messageUnpacker.unpack(msg)
+                    for cmd in cmds:
+                        print("Adding command")
+                        self.networkQueue.put(cmd)
                 connection.close()
             except socket.error:
                 print("Socket Connection Error, trying to reaccept")
+            except KeyboardInterrupt:
+                self.cleanup()
+            except Exception as e:
+                print("MailMan: Top level exception throw while decrypting packet. Exception: ", e)
+
+        def cleanup(self):
+            print("Mailman interrupt")
+            networkQueue.put("exit")
+            sys.exit(0)

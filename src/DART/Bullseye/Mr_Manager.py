@@ -20,7 +20,8 @@ class Mr_Manager:
         while (True):
             try:
                 command = self.networkInQueue.get() #blocking
+                if (command == "exit"):
+                    sys.exit(0)
                 command.execute()
             except Exception as e:
-                print("Top level exception in Mr Manager run. Exception: " e)
-                
+                print(" Mr Manager: Top level exception in run. Exception: ", e)

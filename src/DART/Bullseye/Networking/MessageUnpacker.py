@@ -14,7 +14,7 @@ class MessageUnpacker:
         try:
             rawData = json.loads(netMessage.getValue())
         except ValueError:  # includes simplejson.decoder.JSONDecodeError
-            print 'Decoding JSON has failed'
+            print('Decoding JSON has failed')
             return []
 
         if ("Do" in rawData):
