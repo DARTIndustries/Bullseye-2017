@@ -35,7 +35,7 @@ class MailMan:
                     data = conFile.readline()
                     if not data:
                         break
-                    print("RECIEVED PACKET:    ", data)
+                    print("RECEIVED PACKET:    ", data)
                     msg = NetMessage(data)    
                     cmds = messageUnpacker.unpack(msg)
                     for cmd in cmds:

@@ -25,8 +25,8 @@ class MotorController(Controller):
     def __init__(self):
         self.motors = []
         for pins in MOTOR_PINS:
-            self.motors.append("test")
- #           self.motors.append(MotorDriver(pins[0], pins[1]))   
+            #self.motors.append("test")
+            self.motors.append(MotorDriver(pins[0], pins[1]))   
      
 
     
@@ -34,7 +34,7 @@ class MotorController(Controller):
         if not command.isLongRunning:
             num = command.motorNumber
             val = command.value
-            #self.motors[num].setValue(val)
+            self.motors[num].setValue(val)
             print("Motor Controller: Set Motor: ", num, " To: ", val)
         else:
             print("Motor Controller: No Long running support!")

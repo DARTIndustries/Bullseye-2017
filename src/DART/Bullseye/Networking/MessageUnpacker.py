@@ -36,8 +36,19 @@ class MessageUnpacker:
     def motorToCommands(self, values):
         commands = []
         for i in range(len(values)):
-            commands.append(MotorCommand(i, values[i]))
+            commands.append(MotorCommand(i, self.scaleMotorValue(values[i])))
         return commands
+
+    #Convert [-128, 127] to [-1, 1]
+    def scaleMotorValue(self, value):
+        minVal = -128.0
+        maxVal = 127.0
+
+        if (value < 0):
+            return value / minVal
+        else:
+            return value / maxVal
+
 
     #TODO implement lights message unpacker
     def lightsToCommands(self, values):
