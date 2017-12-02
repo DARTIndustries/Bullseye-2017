@@ -41,8 +41,8 @@ class MessageUnpacker:
 
     #Convert [-128, 127] to [-1, 1]
     def scaleMotorValue(self, value):
-        minVal = -128.0
-        maxVal = 127.0
+        minVal = 128.0  #negative (abs)
+        maxVal = 127.0 
 
         if (value < 0):
             return value / minVal
