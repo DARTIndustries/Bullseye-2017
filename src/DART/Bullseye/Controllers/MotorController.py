@@ -35,7 +35,7 @@ class MotorController(Controller):
             num = command.motorNumber
             val = command.value
             self.motors[num].setValue(val)
-            #print("Motor Controller: Set Motor: ", num, " To: ", val)
+            print("Motor Controller: Set Motor: ", num, " To: ", val)
         else:
             print("Motor Controller: No Long running support!")
 
