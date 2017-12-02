@@ -5,7 +5,7 @@ import sys
 from abc import ABC
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Controllers.Controller import Controller
-#from DART.Bullseye.Drivers.MotorDriver import MotorDriver
+from DART.Bullseye.Drivers.MotorDriver import MotorDriver
 from libs.Singleton import Singleton
 
 #NUM_MOTORS = 6
