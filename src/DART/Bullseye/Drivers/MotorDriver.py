@@ -15,11 +15,12 @@ from libs.ABE_helpers import ABEHelpers
 import RPi.GPIO as GPIO
 
 class MotorDriver:
-	def __init__(self, pwmPort, dirPort):
+	def __init__(self, pwmPort, dirPort, invert):
 		# Initialise the PWM device using the default address
 		i2c_helper = ABEHelpers()
 		bus = i2c_helper.get_smbus()
 		
+		self.invert = invert
 		self.pwm = PWM(bus, 0x40)
 		self.pwm.set_pwm_freq(50) # Set frequency to 60 Hz
 		self.pwm.output_enable()
@@ -43,7 +44,7 @@ class MotorDriver:
 		outVal = abs(inVal) * self.upper
 
 		#Set Direction
-		GPIO.output(self.dirPort, (inVal < 0))
+		GPIO.output(self.dirPort, ((inVal < 0) ^ self.invert))
 
 
 		#print outVal #<-- for debugging uncomment	
