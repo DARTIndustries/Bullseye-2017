@@ -72,6 +72,6 @@ class MessageUnpacker:
     def servoToCommands(self, values): 
         angles = values["Angles"]
         commands = []  
-        for i in range(len(angles):
+        for i in range(len(angles)):
             commands.append(CameraCommand(i, self.scaleServoValue(angles[i])))
         return commands
