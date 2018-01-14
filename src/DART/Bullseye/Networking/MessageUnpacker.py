@@ -22,9 +22,9 @@ class MessageUnpacker:
             do = rawData["Do"]
             if ("Motor" in do):
                 commands += self.motorToCommands(do["Motor"])
-            elif ("Lights" in do):
+            if ("Lights" in do):
                 commands += self.lightsToCommands(do["Lights"])
-            elif ("Servo" in do):
+            if ("Servo" in do):
                 commands += self.servoToCommands(do["Servo"])
         elif ("Request" in rawData):
             print("MailMan Request Not Implemented")
