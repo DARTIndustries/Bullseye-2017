@@ -8,15 +8,13 @@ import socket
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Networking.NetMessage import NetMessage
 from DART.Bullseye.Networking.MessageUnpacker import MessageUnpacker
+from DART.Bullseye.Business.DeliveryBoy import DeliveryBoy
 
 messageUnpacker = MessageUnpacker()
 IP = "0.0.0.0"
 PORT = 5000
 
 class MailMan:
-    def __init__(self, networkQueue):
-        self.networkQueue = networkQueue
-
 
     def run(self):
         sock = socket.socket()
@@ -40,7 +38,7 @@ class MailMan:
                     cmds = messageUnpacker.unpack(msg)
                     for cmd in cmds:
                         print("Adding command")
-                        self.networkQueue.put(cmd)
+                        DeliveryBoy.inQueue.put(cmd)
                 connection.close()
             except socket.error:
                 print("Socket Connection Error, trying to reaccept")
@@ -49,7 +47,7 @@ class MailMan:
             except Exception as e:
                 print("MailMan: Top level exception throw while decrypting packet. Exception: ", e)
 
-        def cleanup(self):
-            print("Mailman interrupt")
-            networkQueue.put("exit")
-            sys.exit(0)
+    def cleanup(self):
+        print("Mailman interrupt")
+        DeliveryBoy.inQueue.put("exit")
+        sys.exit(0)

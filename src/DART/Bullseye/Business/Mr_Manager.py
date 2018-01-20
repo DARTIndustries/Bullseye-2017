@@ -7,19 +7,16 @@ import sys
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Networking.NetMessage import NetMessage
 from DART.Bullseye.Commands.MotorCommand import MotorCommand
+from DART.Bullseye.Business.DeliveryBoy import DeliveryBoy
 
 class Mr_Manager:
-
-    def __init__(self, networkInQueue):
-        self.networkInQueue = networkInQueue
-
 
     def run(self):
         #TODO: Add long running commands
         print("MrManager:  waiting for commands")        
         while (True):
             try:
-                command = self.networkInQueue.get() #blocking
+                command = DeliveryBoy.inQueue.get() #blocking
                 if (command == "exit"):
                     sys.exit(0)
                 command.execute()
