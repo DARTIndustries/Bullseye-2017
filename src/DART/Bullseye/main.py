@@ -9,7 +9,6 @@ import sys
 import os
 import signal
 from threading import Thread
-from queue import Queue
 sys.path.insert(0, '../../')
 from DART.Bullseye.Utils.AsciiArt import AsciiArt
 from DART.Bullseye.Networking.MailMan import MailMan
@@ -17,9 +16,8 @@ from DART.Bullseye.Business.Mr_Manager import Mr_Manager
 
 asciiArt = AsciiArt()
 version = "1.0.0"
-networkQueue = Queue()
-mailMan = MailMan(networkQueue)
-mrManager = Mr_Manager(networkQueue)
+mailMan = MailMan()
+mrManager = Mr_Manager()
 
 
 def run() :

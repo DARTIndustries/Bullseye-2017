@@ -4,7 +4,7 @@
 #Namespace = DART.Bullseye
 
 import sys
-sys.path.insert(0, '../../')
+sys.path.insert(0, '../../../')
 from DART.Bullseye.Networking.NetMessage import NetMessage
 from DART.Bullseye.Commands.MotorCommand import MotorCommand
 
