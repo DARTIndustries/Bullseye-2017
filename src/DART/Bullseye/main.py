@@ -13,7 +13,7 @@ from queue import Queue
 sys.path.insert(0, '../../')
 from DART.Bullseye.Utils.AsciiArt import AsciiArt
 from DART.Bullseye.Networking.MailMan import MailMan
-from DART.Bullseye.Mr_Manager import Mr_Manager
+from DART.Bullseye.Business.Mr_Manager import Mr_Manager
 
 asciiArt = AsciiArt()
 version = "1.0.0"
