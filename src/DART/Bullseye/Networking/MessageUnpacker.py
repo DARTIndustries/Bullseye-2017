@@ -24,8 +24,8 @@ class MessageUnpacker:
                 commands += self.motorToCommands(do["Motor"])
             if ("Lights" in do):
                 commands += self.lightsToCommands(do["Lights"])
-            if ("Servo" in do):
-                commands += self.servoToCommands(do["Servo"])
+            if ("Camera" in do):
+                commands += self.cameraToCommands(do["Camera"])
         elif ("Request" in rawData):
             print("MailMan Request Not Implemented")
         else :
@@ -51,7 +51,7 @@ class MessageUnpacker:
             return value / maxVal
 
     #Convert [0, 180] to [-1, 1]
-    def scaleServoValue(self, value):
+    def scaleCameraValue(self, value):
         value -= 90
         return value / -90
 
@@ -63,7 +63,7 @@ class MessageUnpacker:
         return commands
 
     #TODO implement servo message unpacker
-    def servoToCommands(self, values): 
+    def cameraToCommands(self, values): 
         angles = values["Angles"]
         commands = []  
         for i in range(len(angles)):
