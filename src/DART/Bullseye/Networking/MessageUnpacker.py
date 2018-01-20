@@ -52,14 +52,8 @@ class MessageUnpacker:
 
     #Convert [0, 180] to [-1, 1]
     def scaleServoValue(self, value):
-        minVal = 0 
-        maxVal = 180 
-
-        if (value < 0):
-            return value / minVal
-        else:
-            return value / maxVal
-
+        value -= 90
+        return value / -90
 
 
     #TODO implement lights message unpacker
