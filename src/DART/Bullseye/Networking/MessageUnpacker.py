@@ -67,5 +67,5 @@ class MessageUnpacker:
         angles = values["Angles"]
         commands = []  
         for i in range(len(angles)):
-            commands.append(CameraCommand(i, self.scaleServoValue(angles[i])))
+            commands.append(CameraCommand(i, self.scaleCameraValue(angles[i])))
         return commands
