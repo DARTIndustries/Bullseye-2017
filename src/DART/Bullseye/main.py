@@ -26,14 +26,16 @@ def run() :
     print("\n\t    -----v" + version + "-----\n")
 
     #=====Start Threads=====
-    mailManThread = Thread(target = mailMan.run) 
+    mailManThreadIn = Thread(target = mailMan.receive) 
+    mailManThreadOut = Thread(target = mailMan.send)
     mrManagerThread = Thread(target = mrManager.run) 
 
     
-    mailManThread.start()
+    mailManThreadIn.start()
+    mailManThreadOut.start()
     mrManagerThread.start()
 
-    mailManThread.join()
+    mailManThreadIn.join()
     mrManagerThread.join()
 
 

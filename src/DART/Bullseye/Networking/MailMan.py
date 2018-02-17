@@ -9,6 +9,7 @@ sys.path.insert(0, '../../../')
 from DART.Bullseye.Networking.NetMessage import NetMessage
 from DART.Bullseye.Networking.MessageUnpacker import MessageUnpacker
 from DART.Bullseye.Business.DeliveryBoy import DeliveryBoy
+import json
 
 messageUnpacker = MessageUnpacker()
 IP = "0.0.0.0"
@@ -16,7 +17,25 @@ PORT = 5000
 
 class MailMan:
 
-    def run(self):
+    def send(self):
+        sock = socket.socket()
+        sock.connect(IP,PORT)
+
+        while True:
+            try:
+                data = DeliveryBoy.outQueue.get()
+                print("SENDING PACKET:    ", data)
+                jsonData = json.dumps(data)
+                sock.send(jsonData)
+            except socket.error:
+                print("Socket Connection Error, trying to reaccept")
+            except KeyboardInterrupt:
+                self.cleanup()
+            except Exception as e:
+                print("MailMan: Top level exception throw while decrypting packet. Exception: ", e)
+        sock.close()
+        
+    def receive(self):
         sock = socket.socket()
         server = (IP, PORT)
         sock.bind(server)
