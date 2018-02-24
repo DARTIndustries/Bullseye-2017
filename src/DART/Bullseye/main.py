@@ -28,15 +28,21 @@ def run() :
     #=====Start Threads=====
     mailManThreadIn = Thread(target = mailMan.receive) 
     mailManThreadOut = Thread(target = mailMan.send)
-    mrManagerThread = Thread(target = mrManager.run) 
+    mrManagerThreadPro = Thread(target = mrManager.processor) 
+    mrManagerThreadEx = Thread(target = mrManager.executer) 
+
 
     
     mailManThreadIn.start()
     mailManThreadOut.start()
-    mrManagerThread.start()
+    mrManagerThreadPro.start()
+    mrManagerThreadEx.start()
+
 
     mailManThreadIn.join()
-    mrManagerThread.join()
+    mailManThreadOut.join()
+    mrManagerThreadPro.join()
+    mrManagerThreadEx.join()
 
 
 if __name__ == "__main__":
