@@ -16,8 +16,13 @@ class GyroDriver:
         self.baud = 115200
         self.con = serial.Serial(self.port, self.baud, timeout = 5)
 
-    def read(self):
+    def readLatest(self):
+        """Purge and read the newest value from the gyro"""        
         self.con.flushInput()
+        return self.read()        
+
+    def read(self):
+        """Read a set of values from the gyro. Blocking."""
         line = self.con.readline()
 
         if len(line) == 0:
@@ -32,12 +37,10 @@ class GyroDriver:
             obj.gyro = [float(vals[4]), float(vals[5]), float(vals[6])]
             obj.mag = [float(vals[7]), float(vals[8]), float(vals[9])]
             obj.angle = [float(vals[10]), float(vals[11]), float(vals[12])]
+            return obj            
         except ValueError: 
             print("Invalid Gyro Record")
             return None
-
-
-        return obj
 
 
 
