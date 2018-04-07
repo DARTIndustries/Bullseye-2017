@@ -16,9 +16,13 @@ class GyroDriver:
         self.baud = 115200
         self.con = serial.Serial(self.port, self.baud, timeout = 5)
 
+    def purgeBuffer(self):
+        """Purge serial queue"""
+        self.con.flushInput()
+
     def readLatest(self):
         """Purge and read the newest value from the gyro"""        
-        self.con.flushInput()
+        self.purgeBuffer()
         return self.read()        
 
     def read(self):

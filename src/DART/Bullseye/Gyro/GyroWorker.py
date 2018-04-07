@@ -1,8 +1,10 @@
-#DART 2018
-#Camera Controller
+# DART 2018
+# Camera Controller
 
 import sys
 from abc import ABC
+from threading import Thread
+
 sys.path.insert(0, '../../../')
 from libs.Singleton import Singleton
 from DART.Bullseye.Drivers.GyroDriver import GyroDriver
@@ -15,13 +17,13 @@ class GyroWorker:
 
     def __init__(self):
         self.gyro = GyroDriver()
-        self.gyroThread = Thread(target = self.capture) 
+        self.gyroThread = Thread(target=self.capture)
         self.gyroThread.start()
-
 
     def capture(self):
         print("Starting Gyro Capture Thread")
-        while(True):
-            gyroVal = self.gyro.read()
 
-
+        # Purge before startint to loop
+        self.gyro.purgeBuffer()
+        while (True):
+            GyroWorker.gyroVal = self.gyro.read() #blocking
