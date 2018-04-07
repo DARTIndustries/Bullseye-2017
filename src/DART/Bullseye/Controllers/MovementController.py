@@ -1,8 +1,7 @@
 #DART 2017
-#Motor Controller
+#Movement Controller
 
 import sys
-from abc import ABC
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Controllers.Controller import Controller
 from DART.Bullseye.Drivers.MotorDriver import MotorDriver
@@ -20,7 +19,7 @@ MOTOR_PINS = [
 ]
 
 @Singleton
-class MotorController(Controller):
+class MovementController(Controller):
 
     def __init__(self):
         self.motors = []

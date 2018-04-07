@@ -5,7 +5,7 @@ import sys
 import json
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Networking.NetMessage import NetMessage
-from DART.Bullseye.Commands.MotorCommand import MotorCommand
+from DART.Bullseye.Commands.MotorMovementCommand import MotorMovementCommand
 from DART.Bullseye.Commands.CameraCommand import CameraCommand
 
 class MessageUnpacker:
@@ -37,7 +37,7 @@ class MessageUnpacker:
     def motorToCommands(self, values):
         commands = []
         for i in range(len(values)):
-            commands.append(MotorCommand(i, self.scaleMotorValue(values[i])))
+            commands.append(MotorMovementCommand(i, self.scaleMotorValue(values[i])))
         return commands
 
     #Convert [-128, 127] to [-1, 1]

@@ -2,7 +2,6 @@
 #Camera Controller
 
 import sys
-from abc import ABC
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Controllers.Controller import Controller
 from DART.Bullseye.Drivers.ServoDriver import ServoDriver

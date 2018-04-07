@@ -9,7 +9,7 @@ sys.path.insert(0, '../../../')
 
 class Command(metaclass=abc.ABCMeta):
     def __init__(self):
-        isLongRunning = False
+        self.isLongRunning = False
 
     @abc.abstractmethod
     def execute(self):
