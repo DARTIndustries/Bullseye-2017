@@ -4,28 +4,22 @@
 #Motor Command class
 
 import sys
-import abc
+
 sys.path.insert(0, '../../../')
+from DART.Bullseye.Commands.MovementCommand import MovementCommand
 from DART.Bullseye.Commands.Command import Command
-from DART.Bullseye.Controllers.MotorController import MotorController
+from DART.Bullseye.Controllers.MovementController import MovementController
 
 
-class MotorCommand(Command):
+class MotorMovementCommand(MovementCommand):
     def __init__(self, motorNumber, value, isLongRunning=False):
+        MovementCommand.__init__(self)
         self.motorNumber = motorNumber
         self.value = value
         self.isLongRunning = isLongRunning
 
-
     def execute(self):
         print("command message")
-        motorController = MotorController.Instance()
+        motorController = MovementController.Instance()
         motorController.execute(self)
-
-
-    def isConflicting(self, command):
-        print("Conflicting Motor Command Not implemented")
-        return False
-
-
  

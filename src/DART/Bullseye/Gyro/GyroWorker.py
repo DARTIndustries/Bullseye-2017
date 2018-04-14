@@ -23,7 +23,7 @@ class GyroWorker:
     def capture(self):
         print("Starting Gyro Capture Thread")
 
-        # Purge before startint to loop
+        # Purge before starting to loop
         self.gyro.purgeBuffer()
         while (True):
-            GyroWorker.gyroVal = self.gyro.read() #blocking
+            GyroWorker.gyroVal = self.gyro.read()  # blocking

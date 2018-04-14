@@ -3,7 +3,6 @@
 #Camera Command class
 
 import sys
-import abc
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Commands.Command import Command
 from DART.Bullseye.Controllers.CameraController import CameraController
