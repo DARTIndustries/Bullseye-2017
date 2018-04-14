@@ -57,6 +57,10 @@ class ServoDriver:
 	def off(self):
 		self.pwm.set_pwm(self.port, 0, 0)
 
+	# set the servo to 5v
+	def on(self):
+		self.pwm.set_pwm(self.port, 0, 4095)
+
 
 #===Test driver to control a servo===
 def testDriver():
@@ -67,6 +71,8 @@ def testDriver():
 		value = input("Enter a value from -1 to 1: ")
 		if str(value) == "off":
 			ctrl.off()
+		elif str(value) == "on":
+			ctrl.on()
 		else:	
 			ctrl.setValue(float(value))
 
