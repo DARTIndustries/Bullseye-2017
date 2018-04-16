@@ -12,14 +12,15 @@ from DART.Bullseye.Business.DeliveryBoy import DeliveryBoy
 import json
 
 messageUnpacker = MessageUnpacker()
-IP = "0.0.0.0"
+LISTEN_IP = "0.0.0.0"
+REMOTE_IP=""
 PORT = 5000
 
 class MailMan:
 
     def send(self):
         sock = socket.socket()
-        sock.connect(IP,PORT)
+        sock.connect((REMOTE_IP, PORT))
 
         while True:
             try:
@@ -37,11 +38,11 @@ class MailMan:
         
     def receive(self):
         sock = socket.socket()
-        server = (IP, PORT)
+        server = (LISTEN_IP, PORT)
         sock.bind(server)
 
         sock.listen(5)
-        print("Listening on ip:", IP, "port:", PORT)
+        print("Listening on ip:", LISTEN_IP, "port:", PORT)
 
         while True:
             try: 
