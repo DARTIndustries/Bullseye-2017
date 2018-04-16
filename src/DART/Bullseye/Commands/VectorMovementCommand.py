@@ -10,7 +10,7 @@ from DART.Bullseye.Commands.Command import Command
 from DART.Bullseye.Controllers.MovementController import MovementController
 
 
-class MotorMovementCommand(MovementCommand):
+class VectorMovementCommand(MovementCommand):
     def __init__(self, movementVector, angularVector):
         MovementCommand.__init__(self)
         self.movementVector = movementVector
