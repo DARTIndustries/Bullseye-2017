@@ -19,7 +19,7 @@ class MailMan:
 
     def send(self):
         sock = socket.socket()
-        sock.connect(IP,PORT)
+        sock.connect((IP, PORT))
 
         while True:
             try:
