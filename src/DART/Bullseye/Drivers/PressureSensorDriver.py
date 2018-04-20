@@ -20,8 +20,7 @@ class PressureSensorDriver:
     def getDepth(self):
         if not self.sensor.read():
             print("Sensor read failed!")
-
-        return self.sensor.temperature(ms5837.UNITS_Centigrade)
+        return self.sensor.depth()
 
     def getPressureAtm(self):
         if not self.sensor.read():
