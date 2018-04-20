@@ -4,11 +4,12 @@
 import sys
 import typing
 
+from DART.Bullseye.Commands import MotorMovementCommand
+
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Controllers.Controller import Controller
 from DART.Bullseye.Commands.Command import Command
-from DART.Bullseye.Commands.MotorMovementCommand import MotorMovementCommand
-from DART.Bullseye.Commands.VectorMovementCommand import VectorMovementCommand
+from DART.Bullseye.Commands import VectorMovementCommand
 
 from DART.Bullseye.Drivers.MotorDriver import MotorDriver
 from libs.Singleton import Singleton
@@ -35,13 +36,13 @@ class MovementController(Controller):
             self.motors.append(MotorDriver(pins[0], pins[1], pins[2]))
 
     def execute(self, command: Command):
-        if command is MotorMovementCommand:
+        if command is MotorMovementCommand.MotorMovementCommand:
             command = typing.cast(MotorMovementCommand, command)
             num = command.motorNumber
             val = command.value
             self.motors[num].setValue(val)
             print("Motor Controller: Set Motor: ", num, " To: ", val)
-        elif command is VectorMovementCommand:
+        elif command is VectorMovementCommand.VectorMovementCommand:
             pass
 
         if not command.isLongRunning:

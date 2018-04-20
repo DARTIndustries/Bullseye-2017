@@ -6,7 +6,6 @@ import abc
 import sys
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Commands.Command import Command
-from DART.Bullseye.Controllers.MovementController import MovementController
 
 
 class MovementCommand(Command):
