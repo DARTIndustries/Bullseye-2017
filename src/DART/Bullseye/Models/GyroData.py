@@ -1,15 +1,8 @@
 #!/usr/bin/python3
 
 import sys
-from typing import NamedTuple
-
 sys.path.insert(0, '../../../')
-
-
-class Coordinate(NamedTuple):
-    x: float
-    y: float
-    z: float
+from DART.Bullseye.Models.Types import Coordinate
 
 
 # <timeMS>, <accelX>, <accelY>, <accelZ>, <gyroX>, <gyroY>, <gyroZ>, <magX>, <magY>, <magZ>, <angleX>, <angleY>, <angleZ>
