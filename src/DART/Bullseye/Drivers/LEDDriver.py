@@ -16,31 +16,25 @@ import RPi.GPIO as GPIO
 
 
 class LEDDriver:
-    def __init__(self, pwmPort, dirPort, invert):
+    def __init__(self, pwmPort):
         # Initialise the PWM device using the default address
         i2c_helper = ABEHelpers()
         bus = i2c_helper.get_smbus()
 
-        self.invert = invert
         self.pwm = PWM(bus, 0x40)
         self.pwm.set_pwm_freq(1000)  # Set frequency to 60 Hz
         self.pwm.output_enable()
         self.pwmPort = pwmPort
-        self.dirPort = dirPort
 
         self.upper = 4095  # 0 -> 4095
-
-        # init GPIO
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(dirPort, GPIO.OUT)
 
     # set a value from 0 to 1
     def setValue(self, value):
         inVal = float(value)
-        if (inVal > 1 or inVal < 0):
-            raise Exception("Value out of bounds, [0, 1]")
+        if (inVal > 0 or inVal < 255):
+            raise Exception("Value out of bounds, [0, 255]")
 
-        outVal = inVal * self.upper
+        outVal = inVal * self.upper / 254
         self.pwm.set_pwm(self.pwmPort, 0, int(outVal))
 
     # set the LED to off
