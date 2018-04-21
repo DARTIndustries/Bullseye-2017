@@ -32,7 +32,7 @@ class Mr_Manager:
                 self.filterConflicting(command)
 
                 # ---Execute Command---
-                if command.isLongRunning():
+                if command.isLongRunning:
                     self.longList.append(command)
                 else:
                     command.execute()

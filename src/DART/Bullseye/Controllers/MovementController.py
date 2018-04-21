@@ -33,17 +33,17 @@ class MovementController(Controller):
     def __init__(self):
         self.motors = []
         for pins in MOTOR_PINS:
-            # self.motors.append("test")
-            self.motors.append(MotorDriver(pins[0], pins[1], pins[2]))
+            self.motors.append("test")
+            #self.motors.append(MotorDriver(pins[0], pins[1], pins[2]))
 
     def execute(self, command: Command):
-        if command is MotorMovementCommand.MotorMovementCommand:
+        if type(command) is MotorMovementCommand.MotorMovementCommand:
             command = typing.cast(MotorMovementCommand.MotorMovementCommand, command)
             num = command.motorNumber
             val = command.value
-            self.motors[num].setValue(val)
+            #self.motors[num].setValue(val)
             print("Motor Controller: Set Motor: ", num, " To: ", val)
-        elif command is VectorMovementCommand.VectorMovementCommand:
+        elif type(command) is VectorMovementCommand.VectorMovementCommand:
             pass
 
         if not command.isLongRunning:

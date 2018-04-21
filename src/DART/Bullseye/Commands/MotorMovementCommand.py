@@ -18,7 +18,6 @@ class MotorMovementCommand(MovementCommand):
         self.isLongRunning = isLongRunning
 
     def execute(self):
-        print("command message")
         motorController = MovementController.Instance()
         motorController.execute(self)
  

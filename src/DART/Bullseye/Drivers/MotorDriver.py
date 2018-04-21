@@ -23,7 +23,7 @@ class MotorDriver:
 
         self.invert = invert
         self.pwm = PWM(bus, 0x40)
-        self.pwm.set_pwm_freq(50)  # Set frequency to 60 Hz
+        self.pwm.set_pwm_freq(1000)  # Set frequency to 60 Hz
         self.pwm.output_enable()
         self.pwmPort = pwmPort
         self.dirPort = dirPort

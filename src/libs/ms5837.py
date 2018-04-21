@@ -51,7 +51,7 @@ class MS5837(object):
         self._model = model
         
         try:
-            self._bus = smbus.SMBus(bus)
+            self._bus = smbus2.SMBus(bus)
         except:
             print("Bus %d is not available.") % bus
             print("Available busses are listed as /dev/i2c*")
