@@ -10,6 +10,15 @@ import os
 import signal
 from threading import Thread
 
+
+#TODO:
+# led controller & command
+# Buzzer controller & command
+# Claw command
+# Vector support
+# Gyro
+
+
 sys.path.insert(0, '../../')
 from DART.Bullseye.Utils.AsciiArt import AsciiArt
 from DART.Bullseye.Networking.MailMan import MailMan
