@@ -7,3 +7,6 @@ class Coordinate(NamedTuple):
     x: float
     y: float
     z: float
+
+    def toList(self):
+        return (self.x, self.y, self.z)
