@@ -1,5 +1,5 @@
 try:
-    import smbus
+    import smbus2
 except:
     print('Try sudo apt-get install python-smbus')
     

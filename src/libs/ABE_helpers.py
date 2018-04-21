@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 try:
-    import smbus
+    import smbus2
 except ImportError:
     raise ImportError("python-smbus not found Install with 'sudo apt-get install python3-smbus'")
 import re
