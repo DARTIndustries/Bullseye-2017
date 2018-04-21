@@ -6,6 +6,7 @@
 import sys
 import threading
 import time
+
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Networking.NetMessage import NetMessage
 from DART.Bullseye.Commands.Command import Command
@@ -16,7 +17,6 @@ class Mr_Manager:
     def __init__(self):
         self.longList = []
         self.longListLock = threading.Lock()
-
 
     def processor(self):
         """Processes new messages as they come in and executes non-long running commands"""
@@ -43,7 +43,6 @@ class Mr_Manager:
                 # --Release Long List Lock--
                 self.longListLock.release()
 
-
     def filterConflicting(self, newCommand):
         """Removes any old long running commands that conflict with the new command"""
         newList = []
@@ -52,8 +51,6 @@ class Mr_Manager:
                 newList.append(newCommand)
 
         self.longList = newList
-
-
 
     def executer(self):
         """Executes Long running Commands. Runs in its own thread"""
