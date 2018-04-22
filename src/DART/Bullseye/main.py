@@ -12,7 +12,7 @@ from threading import Thread
 
 
 #TODO:
-# led controller & command
+# -led controller & command
 # Buzzer controller & command
 # Claw command
 # Vector support

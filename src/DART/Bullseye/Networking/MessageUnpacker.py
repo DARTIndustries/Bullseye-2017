@@ -6,6 +6,7 @@ import json
 
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Networking.NetMessage import NetMessage
+from DART.Bullseye.Commands.LEDCommand import LEDCommand
 from DART.Bullseye.Commands.MotorMovementCommand import MotorMovementCommand
 from DART.Bullseye.Commands.CameraCommand import CameraCommand
 
@@ -56,13 +57,9 @@ class MessageUnpacker:
         value -= 90
         return value / -90
 
-    # TODO implement lights message unpacker
-    def lightsToCommands(self, values):
-        commands = []
-        print("Message Unpacker: LIGHTS NOT IMPLEMENTED")
-        return commands
+    def lightsToCommands(self, value):
+        return [LEDCommand(value)]
 
-    # TODO implement servo message unpacker
     def cameraToCommands(self, values):
         angles = values["Angles"]
         commands = []

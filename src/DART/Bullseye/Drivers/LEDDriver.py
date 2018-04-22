@@ -31,8 +31,8 @@ class LEDDriver:
     # set a value from 0 to 1
     def setValue(self, value):
         inVal = float(value)
-        if (inVal > 0 or inVal < 255):
-            raise Exception("Value out of bounds, [0, 255]")
+        if inVal < 0 or inVal > 254:
+            raise Exception("Value out of bounds, [0, 255)")
 
         outVal = inVal * self.upper / 254
         self.pwm.set_pwm(self.pwmPort, 0, int(outVal))
@@ -52,7 +52,7 @@ def testDriver():
     ctrl = LEDDriver(pwmPort)
 
     while (True):
-        value = input("Enter a value from 0 to 1: ")
+        value = input("Enter a value from 0 to 254: ")
         if str(value) == "off":
             ctrl.off()
         else:
