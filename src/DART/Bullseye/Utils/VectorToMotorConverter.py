@@ -14,32 +14,20 @@ class VectorToMotorConverter:
 
     @staticmethod
     def movementVals(movementVector: Coordinate) -> tuple:
-        norm = movementVector.norm()  # magnitude
-        unitVector = movementVector.normalize()
+        #Note .17 = sin(10)
+        #Motor Matrix
+        #[M0 M1 M4]
+        #1   0  -1
+        #1   0   1
+        #0.17  1  0.17
 
-        # matrix = Matrix([
-        #     [0.707, 0, -0.707, movementVector.x],
-        #     [0.707, 0, 0.707, movementVector.y],
-        #     [0.169, 0.971, 0.169, movementVector.z]
-        # ])
+        #Moore Penrose Pseudo Inverse:
+        #0.5    0.5   0
+        #0    -.17    1
+        #-0.5   0.5   0
 
-        matrix = Matrix([
-            [.5, 0, -.5, unitVector.x],
-            [.5, 0, .5, unitVector.y],
-            [0.17, 1, 0.17, unitVector.z]
-        ])
 
-        # matrix = Matrix([
-        #     [1, 0, -1, movementVector.x],
-        #     [1, 0, 1, movementVector.y],
-        #     [0.17, 1, 0.17, movementVector.z]
-        # ])
 
-        rref = matrix.rref()
-        if not rref[1] == (0, 1, 2):
-            print("No solution to RREF!")
-
-        # Get coefficients and multiply by the magnitude
         solution = rref[0]
         m0 = solution[3] * norm
         m5 = m0
