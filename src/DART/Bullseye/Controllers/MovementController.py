@@ -20,8 +20,8 @@ from libs.Singleton import Singleton
 # NUM_MOTORS = 6
 MOTOR_PINS = [
     #  pwm, dir, invert   dir gpio
-    (0, 7, True),  # 4
-    (1, 11, True),  # 17
+    (0, 7, False),  # 4   True
+    (1, 11, False),  # 17  True
     (2, 12, False),  # 18
     (3, 13, False),  # 27
     (4, 15, True),  # 22
@@ -34,7 +34,7 @@ class MovementController(Controller):
 
     def __init__(self):
         self.gyroCorrector = GyroCorrector()
-        self.isGyroOn = True
+        self.isGyroOn = False
         self.motors = []
         self.currHeading = None
         for pins in MOTOR_PINS:
@@ -55,6 +55,8 @@ class MovementController(Controller):
             if self.isGyroOn:
                 # Call Gyro Correction
                 corrected = self.gyroCorrector.correct(command)
+            else:
+                corrected = command
 
             mVals = VectorToMotorConverter.convert(corrected.movementVector, corrected.angularVector)
             for motor, val in zip(self.motors, mVals):

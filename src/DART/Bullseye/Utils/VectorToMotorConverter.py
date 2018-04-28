@@ -78,8 +78,8 @@ class VectorToMotorConverter:
         m1Raw = (0.5 * rVect.x) - (0.5 * rVect.z)
         m2Raw = rVect.y - (SIN10 * rVect.z)
         m3Raw = -rVect.y + (SIN10 * rVect.z)
-        m4Raw = (-0.5 * rVect.x) + (-0.5 * rVect.z)
-        m5Raw = (-0.5 * rVect.x) + (0.5 * rVect.z)
+        m4Raw = (-0.5 * rVect.x) + (0.5 * rVect.z)
+        m5Raw = (-0.5 * rVect.x) + (-0.5 * rVect.z)
 
         # Convert to -1 to 1, then scale by magnitude
         maxRaw = abs(max(m0Raw, m1Raw, m2Raw, m3Raw, m4Raw, m5Raw, key=abs))  # scales -1 to 1

@@ -58,7 +58,8 @@ class MotorDriver:
 def testDriver():
     pwmPort = int(input("Enter a PWM port: "))
     dirPort = int(input("Enter a dir port: "))
-    ctrl = MotorDriver(pwmPort, dirPort)
+    invert = bool(input("Enter invert: "))
+    ctrl = MotorDriver(pwmPort, dirPort, invert)
 
     while (True):
         value = input("Enter a value from -1 to 1: ")

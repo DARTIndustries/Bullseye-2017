@@ -45,8 +45,8 @@ def run():
     mrManagerThreadPro.start()
     mrManagerThreadEx.start()
 
-    gyroWorker = GyroWorker.Instance()
-    gyroWorker.start()
+    # gyroWorker = GyroWorker.Instance()
+    # gyroWorker.start()
 
     mailManThreadIn.join()
     # mailManThreadOut.join()
