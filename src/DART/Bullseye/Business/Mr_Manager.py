@@ -56,16 +56,20 @@ class Mr_Manager:
         """Executes Long running Commands. Runs in its own thread"""
         while True:
             if len(self.longList) > 0:
-                # --Acquire Long List Lock--
-                self.longListLock.acquire()  # Blocking
+                try:
+                    # --Acquire Long List Lock--
+                    self.longListLock.acquire()  # Blocking
 
-                newList = []
-                for command in self.longList:
-                    isDone = command.execute()
-                    if not isDone:
-                        newList.append(command)
-                self.longList = newList
+                    newList = []
+                    for command in self.longList:
+                        isDone = command.execute()
+                        if not isDone:
+                            newList.append(command)
+                    self.longList = newList
+                except Exception as e:
+                    print(" Mr Manager Long running: Top level exception in run. Exception: ", e)
+                finally:
+                    # --Release Long List Lock--
+                    self.longListLock.release()
 
-                # --Release Long List Lock--
-                self.longListLock.release()
             time.sleep(0.005)

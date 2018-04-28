@@ -16,9 +16,13 @@ class VectorToMotorConverter:
         mvmtVals = VectorToMotorConverter.movementVals(movementVector)
         rotVals = VectorToMotorConverter.rotationVals(rotationVector)
 
+        maxMvmt = abs(max(mvmtVals, key=abs))
+        maxRot = abs(max(rotVals, key=abs))
+        maxOrig = abs(max(maxRot, maxMvmt, key=abs))
+
         combined = tuple(map(add, mvmtVals, rotVals))
         maxComb = abs(max(combined, key=abs))
-        return tuple(i / maxComb for i in combined) if maxComb != 0 else combined
+        return tuple((i * maxOrig / maxComb) for i in combined) if maxComb != 0 else combined
 
     @staticmethod
     def movementVals(movementVector: Coordinate) -> tuple:
@@ -74,8 +78,8 @@ class VectorToMotorConverter:
         m1Raw = (0.5 * rVect.x) - (0.5 * rVect.z)
         m2Raw = rVect.y - (SIN10 * rVect.z)
         m3Raw = -rVect.y + (SIN10 * rVect.z)
-        m4Raw = (-0.5 * rVect.x) + (0.5 * rVect.z)
-        m5Raw = (-0.5 * rVect.x) + (-0.5 * rVect.z)
+        m4Raw = (-0.5 * rVect.x) + (-0.5 * rVect.z)
+        m5Raw = (-0.5 * rVect.x) + (0.5 * rVect.z)
 
         # Convert to -1 to 1, then scale by magnitude
         maxRaw = abs(max(m0Raw, m1Raw, m2Raw, m3Raw, m4Raw, m5Raw, key=abs))  # scales -1 to 1

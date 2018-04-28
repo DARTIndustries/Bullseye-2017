@@ -34,7 +34,7 @@ class MovementController(Controller):
 
     def __init__(self):
         self.gyroCorrector = GyroCorrector()
-        self.isGyroOn = False
+        self.isGyroOn = True
         self.motors = []
         self.currHeading = None
         for pins in MOTOR_PINS:
@@ -54,9 +54,9 @@ class MovementController(Controller):
 
             if self.isGyroOn:
                 # Call Gyro Correction
-                command = self.gyroCorrector.correct(command)
+                corrected = self.gyroCorrector.correct(command)
 
-            mVals = VectorToMotorConverter.convert(command.movementVector, command.angularVector)
+            mVals = VectorToMotorConverter.convert(corrected.movementVector, corrected.angularVector)
             for motor, val in zip(self.motors, mVals):
                 motor.setValue(val)
 

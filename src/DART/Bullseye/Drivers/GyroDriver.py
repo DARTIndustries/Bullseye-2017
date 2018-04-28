@@ -5,8 +5,11 @@
 import os, sys
 import serial
 import time
+
+
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Models.GyroData import GyroData
+from DART.Bullseye.Models.Types import Coordinate
 
 #<timeMS>, <accelX>, <accelY>, <accelZ>, <gyroX>, <gyroY>, <gyroZ>, <magX>, <magY>, <magZ>, <angleX>, <angleY>, <angleZ>
 
@@ -37,10 +40,10 @@ class GyroDriver:
             vals = line.decode().split(',')
             obj = GyroData()
             obj.time = float(vals[0])
-            obj.accel = [float(vals[1]), float(vals[2]), float(vals[3])]
-            obj.gyro = [float(vals[4]), float(vals[5]), float(vals[6])]
-            obj.mag = [float(vals[7]), float(vals[8]), float(vals[9])]
-            obj.angle = [float(vals[10]), float(vals[11]), float(vals[12])]
+            obj.accel = Coordinate(float(vals[1]), float(vals[2]), float(vals[3]))
+            obj.gyro = Coordinate(float(vals[4]), float(vals[5]), float(vals[6]))
+            obj.mag = Coordinate(float(vals[7]), float(vals[8]), float(vals[9]))
+            obj.angle = Coordinate(float(vals[10]), float(vals[11]), float(vals[12]))
             return obj            
         except ValueError: 
             print("Invalid Gyro Record")

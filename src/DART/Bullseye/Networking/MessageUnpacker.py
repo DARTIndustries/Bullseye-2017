@@ -7,9 +7,9 @@ from typing import List
 
 from DART.Bullseye.Commands import Command
 from DART.Bullseye.Commands.BuzzerCommand import BuzzerCommand
+from DART.Bullseye.Networking.NetMessage import NetMessage
 
 sys.path.insert(0, '../../../')
-from DART.Bullseye.Networking.NetMessage import NetMessage
 from DART.Bullseye.Commands.LEDCommand import LEDCommand
 from DART.Bullseye.Commands.MotorMovementCommand import MotorMovementCommand
 from DART.Bullseye.Commands.VectorMovementCommand import VectorMovementCommand
@@ -19,7 +19,7 @@ from DART.Bullseye.Models.Types import Coordinate
 
 
 class MessageUnpacker:
-    def unpack(self, netMessage: NetMessage) -> List[Command]:
+    def unpack(self, netMessage: NetMessage):
         commands = []
 
         try:

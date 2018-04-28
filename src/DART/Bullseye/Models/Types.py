@@ -27,6 +27,4 @@ class Coordinate(NamedTuple):
         return self.x == 0 and self.y == 0 and self.z == 0
 
     def multiply(self, multipler: float):
-        self.x *= multipler
-        self.y *= multipler
-        self.z *= multipler
+        return Coordinate(self.x * multipler, self.y * multipler, self.z * multipler)

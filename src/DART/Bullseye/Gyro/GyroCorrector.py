@@ -9,7 +9,7 @@ class GyroCorrector:
         self.currHeading = None
 
     def correct(self, command: VectorMovementCommand.VectorMovementCommand):
-        if command.angularVector.isZero():
+        if (not command.angularVector.isZero()) or self.currHeading is None:
             self.currHeading = GyroWorker.gyroVal.angle
             return command
         elif self.currHeading is not None:
@@ -21,11 +21,10 @@ class GyroCorrector:
             # Build the correction vector by taking max, normalizing, then scaling to max
             scale = abs(max(x, y, z, key=abs))
             angles = Coordinate(x, y, z).normalize()
-            angles.multiply(scale)
+            angles = angles.multiply(scale)
 
             # Update Command angle vector
-            command.angularVector = angles
-            return command
+            return VectorMovementCommand.VectorMovementCommand(command.movementVector, angles)
 
     def calcAngleDiff(self, desiredVal: float, gyroVal: float):
         """Takes in angles in deg 0-360 and finds their difference"""

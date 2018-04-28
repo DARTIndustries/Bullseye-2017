@@ -4,7 +4,7 @@
 
 import sys
 
-from DART.Bullseye.Controllers.BuzzerController import BuzzerController
+from DART.Bullseye.Controllers import BuzzerController
 
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Commands.Command import Command
@@ -16,7 +16,7 @@ class BuzzerCommand(Command):
         self.isLongRunning = True
 
     def execute(self):
-        buzzerController = BuzzerController.Instance()
+        buzzerController = BuzzerController.BuzzerController.Instance()
         return buzzerController.execute(self)
 
     def isConflicting(self, command) -> bool:

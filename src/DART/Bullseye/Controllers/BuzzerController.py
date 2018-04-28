@@ -3,7 +3,6 @@
 import time
 import sys
 
-from DART.Bullseye.Commands import BuzzerCommand
 
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Controllers.Controller import Controller
@@ -20,7 +19,7 @@ class BuzzerController(Controller):
         self.isOn = False
         self.startTimeMillis = 0
 
-    def execute(self, command: BuzzerCommand.BuzzerCommand) -> bool:
+    def execute(self, command) -> bool:
         if command.state:  # buzz
             self.buzzPattern()
             return False

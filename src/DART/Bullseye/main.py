@@ -8,8 +8,7 @@
 import sys
 from threading import Thread
 
-
-#TODO:
+# TODO:
 # -led controller & command
 # -Buzzer controller & command
 # -Claw command
@@ -46,8 +45,8 @@ def run():
     mrManagerThreadPro.start()
     mrManagerThreadEx.start()
 
-    # gyroWorker = GyroWorker()
-    # gyroWorker.start()
+    gyroWorker = GyroWorker.Instance()
+    gyroWorker.start()
 
     mailManThreadIn.join()
     # mailManThreadOut.join()
