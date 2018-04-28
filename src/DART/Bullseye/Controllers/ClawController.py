@@ -1,5 +1,5 @@
 #DART 2018
-#Camera Controller
+#Claw Controller
 
 import sys
 sys.path.insert(0, '../../../')
@@ -8,7 +8,7 @@ from DART.Bullseye.Drivers.ServoDriver import ServoDriver
 from libs.Singleton import Singleton
 
 
-SERVO_PIN = 11 #TODO SET PIN NUM
+SERVO_PIN = 10
 
 @Singleton
 class ClawController(Controller):
@@ -19,7 +19,7 @@ class ClawController(Controller):
         if not command.isLongRunning:
             val = command.value
             self.servo.setValue(val)
-            print("Camera Controller: Set Claw To: ", val)
+            # print("Claw Controller: Set Claw To: ", val)
         else:
-            print("Camera Controller: No Long running support!")
+            print("Claw Controller: No Long running support!")
 

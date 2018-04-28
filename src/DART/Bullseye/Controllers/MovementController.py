@@ -7,11 +7,9 @@ import typing
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Controllers.Controller import Controller
 from DART.Bullseye.Commands.Command import Command
-
 from DART.Bullseye.Commands import VectorMovementCommand
 from DART.Bullseye.Commands import MotorMovementCommand
-
-
+from DART.Bullseye.Utils.VectorToMotorConverter import VectorToMotorConverter
 from DART.Bullseye.Drivers.MotorDriver import MotorDriver
 from libs.Singleton import Singleton
 
@@ -33,7 +31,7 @@ class MovementController(Controller):
     def __init__(self):
         self.motors = []
         for pins in MOTOR_PINS:
-            #self.motors.append("test")
+            # self.motors.append("test")
             self.motors.append(MotorDriver(pins[0], pins[1], pins[2]))
 
     def execute(self, command: Command):
@@ -44,7 +42,10 @@ class MovementController(Controller):
             self.motors[num].setValue(val)
             # print("Motor Controller: Set Motor: ", num, " To: ", val)
         elif type(command) is VectorMovementCommand.VectorMovementCommand:
-            pass
+            command = typing.cast(VectorMovementCommand.VectorMovementCommand, command)
+            mVals = VectorToMotorConverter.convert(command.movementVector, command.angularVector)
+            for motor, val in zip(self.motors, mVals):
+                motor.setValue(val)
 
         if not command.isLongRunning:
             pass

@@ -3,16 +3,22 @@
 
 import sys
 import json
+from typing import List
+
+from DART.Bullseye.Commands import Command
 
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Networking.NetMessage import NetMessage
 from DART.Bullseye.Commands.LEDCommand import LEDCommand
 from DART.Bullseye.Commands.MotorMovementCommand import MotorMovementCommand
+from DART.Bullseye.Commands.VectorMovementCommand import VectorMovementCommand
 from DART.Bullseye.Commands.CameraCommand import CameraCommand
+from DART.Bullseye.Commands.ClawCommand import ClawCommand
+from DART.Bullseye.Models.Types import Coordinate
 
 
 class MessageUnpacker:
-    def unpack(self, netMessage):
+    def unpack(self, netMessage: NetMessage) -> List[Command]:
         commands = []
 
         try:
@@ -21,15 +27,21 @@ class MessageUnpacker:
             print('Decoding JSON has failed')
             return []
 
-        if ("Do" in rawData):
+        if "Do" in rawData:
             do = rawData["Do"]
-            if ("Motor" in do):
+            if "Motor" in do:
                 commands += self.motorToCommands(do["Motor"])
-            if ("Lights" in do):
+            elif "MotorVector" in do:
+                commands += self.motorVectorToCommands(do["MotorVector"])
+
+            if "Lights" in do:
                 commands += self.lightsToCommands(do["Lights"])
-            if ("Camera" in do):
+            if "Camera" in do:
                 commands += self.cameraToCommands(do["Camera"])
-        elif ("Request" in rawData):
+            if "Claw" in do:
+                commands += self.clawToCommands(do["Claw"])
+
+        elif "Request" in rawData:
             print("MailMan Request Not Implemented")
         else:
             print("Mailman, invalid packet recieved:    ", rawData)
@@ -42,8 +54,17 @@ class MessageUnpacker:
             commands.append(MotorMovementCommand(i, self.scaleMotorValue(values[i])))
         return commands
 
-    # Convert [-128, 127] to [-1, 1]
+    def motorVectorToCommands(self, values):
+        mvmt = self.vectorToCoor(values["Velocity"])
+        angle = self.vectorToCoor(values["AngularVelocity"])
+        return [VectorMovementCommand(mvmt, angle)]
+
+    def vectorToCoor(self, vector) -> Coordinate:
+        return Coordinate(self.scaleMotorValue(vector["X"]), self.scaleMotorValue(vector["Y"]),
+                          self.scaleMotorValue(vector["Z"]))
+
     def scaleMotorValue(self, value):
+        """Convert [-128, 127] to [-1, 1]"""
         minVal = 128.0  # negative (abs)
         maxVal = 127.0
 
@@ -52,8 +73,8 @@ class MessageUnpacker:
         else:
             return value / maxVal
 
-    # Convert [0, 180] to [-1, 1]
     def scaleCameraValue(self, value):
+        """Convert [0, 180] to [-1, 1]"""
         value -= 90
         return value / -90
 
@@ -66,3 +87,6 @@ class MessageUnpacker:
         for i in range(len(angles)):
             commands.append(CameraCommand(i, self.scaleCameraValue(angles[i])))
         return commands
+
+    def clawToCommands(self, values):
+        return [ClawCommand(self.scaleCameraValue(values["Angle"]))]

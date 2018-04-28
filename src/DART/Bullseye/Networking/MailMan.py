@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 
-#DART 10/14/17
-#Namespace = DART.Bullseye.Networking
+# DART 10/14/17
+# Namespace = DART.Bullseye.Networking
 
 import sys
-import socket 
+import socket
+
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Networking.NetMessage import NetMessage
 from DART.Bullseye.Networking.MessageUnpacker import MessageUnpacker
@@ -13,8 +14,9 @@ import json
 
 messageUnpacker = MessageUnpacker()
 LISTEN_IP = "0.0.0.0"
-REMOTE_IP=""
+REMOTE_IP = ""
 PORT = 5000
+
 
 class MailMan:
 
@@ -35,7 +37,7 @@ class MailMan:
             except Exception as e:
                 print("MailMan: Top level exception throw while decrypting packet. Exception: ", e)
         sock.close()
-        
+
     def receive(self):
         sock = socket.socket()
         server = (LISTEN_IP, PORT)
@@ -45,16 +47,16 @@ class MailMan:
         print("Listening on ip:", LISTEN_IP, "port:", PORT)
 
         while True:
-            try: 
+            try:
                 connection, address = sock.accept()
-                print ("Connection from: " + str(address))
+                print("Connection from: " + str(address))
                 conFile = connection.makefile()
                 while True:
                     data = conFile.readline()
                     if not data:
                         break
                     print("RECEIVED PACKET:    ", data)
-                    msg = NetMessage(data)    
+                    msg = NetMessage(data)
                     cmds = messageUnpacker.unpack(msg)
                     for cmd in cmds:
                         print("Adding command")
