@@ -6,17 +6,17 @@
 # Namespace = DART.Bullseye
 
 import sys
-import os
-import signal
 from threading import Thread
 
 
 #TODO:
 # -led controller & command
-# Buzzer controller & command
-# Claw command
-# Vector support
+# -Buzzer controller & command
+# -Claw command
+# -Vector support
 # Gyro
+# Movement Based Camera and Claw
+# Response Values
 
 
 sys.path.insert(0, '../../')

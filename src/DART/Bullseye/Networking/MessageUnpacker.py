@@ -6,6 +6,7 @@ import json
 from typing import List
 
 from DART.Bullseye.Commands import Command
+from DART.Bullseye.Commands.BuzzerCommand import BuzzerCommand
 
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Networking.NetMessage import NetMessage
@@ -40,6 +41,8 @@ class MessageUnpacker:
                 commands += self.cameraToCommands(do["Camera"])
             if "Claw" in do:
                 commands += self.clawToCommands(do["Claw"])
+            if "Buzzer" in do:
+                commands += self.buzzerToCommands(do["Buzzer"])
 
         elif "Request" in rawData:
             print("MailMan Request Not Implemented")
@@ -90,3 +93,6 @@ class MessageUnpacker:
 
     def clawToCommands(self, values):
         return [ClawCommand(self.scaleCameraValue(values["Angle"]))]
+
+    def buzzerToCommands(self, values):
+        return [BuzzerCommand(values["State"])]

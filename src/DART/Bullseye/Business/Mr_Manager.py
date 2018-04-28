@@ -54,17 +54,18 @@ class Mr_Manager:
 
     def executer(self):
         """Executes Long running Commands. Runs in its own thread"""
-        while (True):
-            # --Acquire Long List Lock--
-            self.longListLock.acquire()  # Blocking
+        while True:
+            if len(self.longList) > 0:
+                # --Acquire Long List Lock--
+                self.longListLock.acquire()  # Blocking
 
-            newList = []
-            for command in self.longList:
-                isDone = command.execute()
-                if not isDone:
-                    newList.append(command)
-            self.longList = newList
+                newList = []
+                for command in self.longList:
+                    isDone = command.execute()
+                    if not isDone:
+                        newList.append(command)
+                self.longList = newList
 
-            # --Release Long List Lock--
-            self.longListLock.release()
+                # --Release Long List Lock--
+                self.longListLock.release()
             time.sleep(0.005)
