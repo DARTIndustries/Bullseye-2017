@@ -22,3 +22,11 @@ class Coordinate(NamedTuple):
 
     def norm(self) -> float:
         return math.sqrt(self.x ** 2 + self.y ** 2 + self.z ** 2)
+
+    def isZero(self) -> bool:
+        return self.x == 0 and self.y == 0 and self.z == 0
+
+    def multiply(self, multipler: float):
+        self.x *= multipler
+        self.y *= multipler
+        self.z *= multipler

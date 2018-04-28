@@ -10,10 +10,10 @@ from DART.Bullseye.Models.Types import Coordinate
 class GyroData:
     def __init__(self):
         self.time = 0
-        self.accel: Coordinate = Coordinate(0.0, 0.0, 0.0)
-        self.gyro: Coordinate = Coordinate(0.0, 0.0, 0.0)
-        self.mag: Coordinate = Coordinate(0.0, 0.0, 0.0)
-        self.angle: Coordinate = Coordinate(0.0, 0.0, 0.0)
+        self.accel: Coordinate = None
+        self.gyro: Coordinate = None
+        self.mag: Coordinate = None
+        self.angle: Coordinate = None
 
     def __str__(self) -> str:
         return "GyroData:\n  accel: {0}\n  gyro: {1}\n  mag: {2}\n  angle: {3})".format(self.accel, self.gyro, self.mag,

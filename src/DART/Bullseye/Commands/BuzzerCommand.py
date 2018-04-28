@@ -17,7 +17,7 @@ class BuzzerCommand(Command):
 
     def execute(self):
         buzzerController = BuzzerController.Instance()
-        buzzerController.execute(self)
+        return buzzerController.execute(self)
 
     def isConflicting(self, command) -> bool:
         if type(command) is BuzzerCommand:

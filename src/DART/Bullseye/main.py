@@ -18,11 +18,11 @@ from threading import Thread
 # Movement Based Camera and Claw
 # Response Values
 
-
 sys.path.insert(0, '../../')
 from DART.Bullseye.Utils.AsciiArt import AsciiArt
 from DART.Bullseye.Networking.MailMan import MailMan
 from DART.Bullseye.Business.Mr_Manager import Mr_Manager
+from DART.Bullseye.Gyro.GyroWorker import GyroWorker
 
 asciiArt = AsciiArt()
 version = "1.0.0"
@@ -37,17 +37,20 @@ def run():
 
     # =====Start Threads=====
     mailManThreadIn = Thread(target=mailMan.receive)
-    #mailManThreadOut = Thread(target=mailMan.send)
+    # mailManThreadOut = Thread(target=mailMan.send)
     mrManagerThreadPro = Thread(target=mrManager.processor)
     mrManagerThreadEx = Thread(target=mrManager.executer)
 
     mailManThreadIn.start()
-    #mailManThreadOut.start()
+    # mailManThreadOut.start()
     mrManagerThreadPro.start()
     mrManagerThreadEx.start()
 
+    # gyroWorker = GyroWorker()
+    # gyroWorker.start()
+
     mailManThreadIn.join()
-    #mailManThreadOut.join()
+    # mailManThreadOut.join()
     mrManagerThreadPro.join()
     mrManagerThreadEx.join()
 

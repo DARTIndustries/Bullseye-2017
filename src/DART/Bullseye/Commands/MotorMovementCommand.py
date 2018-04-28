@@ -19,5 +19,5 @@ class MotorMovementCommand(MovementCommand):
 
     def execute(self):
         motorController = MovementController.Instance()
-        motorController.execute(self)
+        return motorController.execute(self)
  

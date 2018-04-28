@@ -4,6 +4,10 @@
 import sys
 import typing
 
+from DART.Bullseye.Gyro.GyroCorrector import GyroCorrector
+from DART.Bullseye.Gyro.GyroWorker import GyroWorker
+from DART.Bullseye.Models.Types import Coordinate
+
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Controllers.Controller import Controller
 from DART.Bullseye.Commands.Command import Command
@@ -29,25 +33,31 @@ MOTOR_PINS = [
 class MovementController(Controller):
 
     def __init__(self):
+        self.gyroCorrector = GyroCorrector()
+        self.isGyroOn = False
         self.motors = []
+        self.currHeading = None
         for pins in MOTOR_PINS:
             # self.motors.append("test")
             self.motors.append(MotorDriver(pins[0], pins[1], pins[2]))
 
-    def execute(self, command: Command):
+    def execute(self, command: Command) -> bool:
         if type(command) is MotorMovementCommand.MotorMovementCommand:
             command = typing.cast(MotorMovementCommand.MotorMovementCommand, command)
             num = command.motorNumber
             val = command.value
             self.motors[num].setValue(val)
             # print("Motor Controller: Set Motor: ", num, " To: ", val)
+            return True
         elif type(command) is VectorMovementCommand.VectorMovementCommand:
             command = typing.cast(VectorMovementCommand.VectorMovementCommand, command)
+
+            if self.isGyroOn:
+                # Call Gyro Correction
+                command = self.gyroCorrector.correct(command)
+
             mVals = VectorToMotorConverter.convert(command.movementVector, command.angularVector)
             for motor, val in zip(self.motors, mVals):
                 motor.setValue(val)
 
-        if not command.isLongRunning:
-            pass
-        else:
-            print("Motor Controller: No Long running support!")
+            return not self.isGyroOn  # if gyro, not done, else finished

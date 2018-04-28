@@ -18,7 +18,6 @@ class GyroWorker:
     def __init__(self):
         self.gyro = GyroDriver()
         self.gyroThread = Thread(target=self.capture)
-        self.gyroThread.start()
 
     def capture(self):
         print("Starting Gyro Capture Thread")
@@ -27,3 +26,6 @@ class GyroWorker:
         self.gyro.purgeBuffer()
         while (True):
             GyroWorker.gyroVal = self.gyro.read()  # blocking
+
+    def start(self):
+        self.gyroThread.start()

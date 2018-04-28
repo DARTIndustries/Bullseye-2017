@@ -16,8 +16,8 @@ class VectorMovementCommand(MovementCommand):
         MovementCommand.__init__(self)
         self.movementVector = movementVector
         self.angularVector = angularVector
-        self.isLongRunning = False
+        self.isLongRunning = True
 
     def execute(self):
         motorController = MovementController.MovementController.Instance()
-        motorController.execute(self)
+        return motorController.execute(self)

@@ -63,8 +63,8 @@ class MessageUnpacker:
         return [VectorMovementCommand(mvmt, angle)]
 
     def vectorToCoor(self, vector) -> Coordinate:
-        return Coordinate(self.scaleMotorValue(vector["X"]), self.scaleMotorValue(vector["Y"]),
-                          self.scaleMotorValue(vector["Z"]))
+        return Coordinate(self.scaleMotorValue(vector[0]), self.scaleMotorValue(vector[1]),
+                          self.scaleMotorValue(vector[2]))
 
     def scaleMotorValue(self, value):
         """Convert [-128, 127] to [-1, 1]"""
