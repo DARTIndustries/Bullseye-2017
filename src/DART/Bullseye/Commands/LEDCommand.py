@@ -17,6 +17,7 @@ class LEDCommand(Command):
 
     def execute(self):
         LEDController.LEDController.Instance().execute(self)
+        return False
 
     def isConflicting(self, command):
         print("Conflicting LED Command Not implemented")

@@ -44,7 +44,7 @@ class VectorToMotorConverter:
         # Compute raw values for left side of robot
         # Note: these aren't scaled correctly, but they are proportional
         m0Raw = (0.5 * dirV.x) + (0.5 * dirV.y)
-        m2Raw = (-SIN10 * dirV.y) + dirV.z
+        m2Raw = (SIN10 * dirV.y) - dirV.z
         m4Raw = (-0.5 * dirV.x) + 0.5 * dirV.y
 
         # Convert to -1 to 1, then scale by magnitude

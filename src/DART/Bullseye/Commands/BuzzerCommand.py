@@ -21,5 +21,5 @@ class BuzzerCommand(Command):
 
     def isConflicting(self, command) -> bool:
         if type(command) is BuzzerCommand:
-            return command.state != self.state  # Conflicting if not equal
+            return True
         return False

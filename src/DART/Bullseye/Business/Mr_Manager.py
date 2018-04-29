@@ -8,8 +8,6 @@ import threading
 import time
 
 sys.path.insert(0, '../../../')
-from DART.Bullseye.Networking.NetMessage import NetMessage
-from DART.Bullseye.Commands.Command import Command
 from DART.Bullseye.Business.DeliveryBoy import DeliveryBoy
 
 
@@ -45,12 +43,12 @@ class Mr_Manager:
 
     def filterConflicting(self, newCommand):
         """Removes any old long running commands that conflict with the new command"""
-        newList = []
-        for longCommand in self.longList:
-            if not newCommand.isConflicting(longCommand):
-                newList.append(newCommand)
-
-        self.longList = newList
+        if len(self.longList) > 0:
+            newList = []
+            for longCommand in self.longList:
+                if not newCommand.isConflicting(longCommand):
+                    newList.append(newCommand)
+            self.longList = newList
 
     def executer(self):
         """Executes Long running Commands. Runs in its own thread"""
