@@ -45,9 +45,9 @@ class Mr_Manager:
         """Removes any old long running commands that conflict with the new command"""
         if len(self.longList) > 0:
             newList = []
-            for longCommand in self.longList:
-                if not newCommand.isConflicting(longCommand):
-                    newList.append(newCommand)
+            for oldLongCommand in self.longList:
+                if not oldLongCommand.isConflicting(newCommand):
+                    newList.append(oldLongCommand)
             self.longList = newList
 
     def executer(self):
