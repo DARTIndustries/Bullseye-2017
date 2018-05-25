@@ -15,7 +15,7 @@ from libs.ABE_ServoPi import PWM
 from libs.ABE_helpers import ABEHelpers
 
 
-class ServoDriver:
+class VexMotorDriver:
     def __init__(self, port):
         # Initialise the PWM device using the default address
         i2c_helper = ABEHelpers()

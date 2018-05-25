@@ -4,21 +4,21 @@
 import sys
 sys.path.insert(0, '../../../')
 from DART.Bullseye.Controllers.Controller import Controller
-from DART.Bullseye.Drivers.ServoDriver import ServoDriver
+from DART.Bullseye.Drivers.VexMotorDriver import VexMotorDriver
 from libs.Singleton import Singleton
 
 
 SERVO_PIN = 10
 
 @Singleton
-class ClawController(Controller):
+class VexMotorDriver(Controller):
     def __init__(self):
-        self.servo = ServoDriver(SERVO_PIN)
+        self.driver = VexMotorDriver(SERVO_PIN)
 
     def execute(self, command):
         if not command.isLongRunning:
             val = command.value
-            self.servo.setValue(val)
+            self.driver.setValue(val)
             # print("Claw Controller: Set Claw To: ", val)
         else:
             print("Claw Controller: No Long running support!")
