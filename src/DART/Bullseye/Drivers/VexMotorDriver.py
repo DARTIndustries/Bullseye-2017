@@ -27,9 +27,9 @@ class ServoDriver:
         self.port = port
 
         # ===The Below Values may need to be configurable===
-        self.lower = 200
+        self.lower = 150
         self.mid = 306
-        self.upper = 415
+        self.upper = 500
 
     # set a value from -1 to 1
     def setValue(self, value):
