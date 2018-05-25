@@ -11,7 +11,7 @@ from libs.Singleton import Singleton
 SERVO_PIN = 10
 
 @Singleton
-class VexMotorDriver(Controller):
+class ClawController(Controller):
     def __init__(self):
         self.driver = VexMotorDriver(SERVO_PIN)
 
