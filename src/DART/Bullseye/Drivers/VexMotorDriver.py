@@ -27,9 +27,9 @@ class VexMotorDriver:
         self.port = port
 
         # ===The Below Values may need to be configurable===
-        self.lower = 195
-        self.mid = 306
-        self.upper = 420
+        self.lower = 155
+        self.mid = 350
+        self.upper = 500
 
     # set a value from -1 to 1
     def setValue(self, value):
@@ -63,7 +63,7 @@ class VexMotorDriver:
 # ===Test driver to control a servo===
 def testDriver():
     port = int(input("Enter a port: "))
-    ctrl = ServoDriver(port)
+    ctrl = VexMotorDriver(port)
 
     while (True):
         value = input("Enter a value from -1 to 1: ")
