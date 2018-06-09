@@ -22,8 +22,8 @@ MOTOR_PINS = [
     #  pwm, dir, invert   dir gpio
     (0, 7, False),  # 4   True
     (1, 11, False),  # 17  True
-    (2, 12, False),  # 18
-    (3, 13, False),  # 27
+    (2, 12, True),  # 18
+    (3, 13, True),  # 27
     (4, 15, True),  # 22
     (5, 16, True),  # 23
 ]
